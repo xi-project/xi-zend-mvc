@@ -5,6 +5,8 @@ use Xi\Zend\Mvc\ActionDispatcher\StatefulActionDispatcher;
 
 /**
  * An ActionController that can communicate a resulting state from an action.
+ * Uses a StatefulActionDispatcher to allow setting the state based on the 
+ * return value from the action.
  */
 class StatefulActionController extends AbstractActionController
 {

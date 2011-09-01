@@ -128,10 +128,11 @@ abstract class AbstractActionDispatcher implements ActionDispatcher
      * 
      * @param string $method
      * @param array $arguments 
+     * @return mixed action method return value
      */
     protected function dispatchAction($method, $arguments)
     {
-        call_user_func_array(array($this->getActionController(), $method), $arguments);
+        return call_user_func_array(array($this->getActionController(), $method), $arguments);
     }
     
     /**
