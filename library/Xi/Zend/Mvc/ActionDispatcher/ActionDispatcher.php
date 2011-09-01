@@ -12,7 +12,9 @@ interface ActionDispatcher
     public function getActionController();
     
     /**
-     * Dispatch the requested action on the associated ActionController
+     * Dispatch the requested action on the associated ActionController. The
+     * action is a method name formatted by the controller dispatcher, such as
+     * 'indexAction'.
      * 
      * @param string $action
      * @return void

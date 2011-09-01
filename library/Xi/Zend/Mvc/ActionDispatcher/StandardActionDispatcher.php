@@ -6,12 +6,33 @@ namespace Xi\Zend\Mvc\ActionDispatcher;
  * completeness; should probably not be used for other than legacy and/or
  * backwards compatibility reasons.
  */
-class StandardActionDispatcher extends AbstractActionDispatcher
+class StandardActionDispatcher implements ActionDispatcher
 {
+    /**
+     * @var ActionController
+     */
+    private $actionController;
+    
     /**
      * @var array
      */
     protected $_classMethods;
+    
+    /**
+     * @param ActionController $actionController
+     */
+    public function __construct($actionController)
+    {
+        $this->actionController = $actionController;
+    }
+    
+    /**
+     * @return ActionController
+     */
+    public function getActionController()
+    {
+        return $this->actionController;
+    }
     
     public function dispatch($action)
     {
