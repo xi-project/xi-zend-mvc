@@ -19,7 +19,7 @@ class StatefulActionController extends AbstractActionController
      * @param null|boolean|string $state
      * @return StatefulActionController
      */
-    protected function setState($state)
+    public function setState($state)
     {
         $this->state = $state;
         return $this;
@@ -28,7 +28,7 @@ class StatefulActionController extends AbstractActionController
     /**
      * @return null|boolean|string
      */
-    protected function getState()
+    public function getState()
     {
         return $this->state;
     }
