@@ -1,5 +1,5 @@
 <?php
-namespace Xi\Zend\Mvc\Action\Helper;
+namespace Xi\Zend\Mvc\ActionHelper;
 
 class ViewRenderer extends \Zend_Controller_Action_Helper_ViewRenderer
 {
