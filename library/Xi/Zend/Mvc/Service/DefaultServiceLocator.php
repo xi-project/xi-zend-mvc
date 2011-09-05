@@ -14,6 +14,7 @@ class DefaultServiceLocator extends \Xi\Zend\Mvc\DependencyInjection\AbstractSer
     public function __construct(\Zend_Application_Bootstrap_Bootstrap $bootstrap)
     {
         $this->bootstrap = $bootstrap;
+        parent::__construct();
     }
     
     public function init()
