@@ -48,4 +48,13 @@ abstract class AbstractActionController extends \Zend_Controller_Action
      * @return ActionDispatcher
      */
     abstract protected function getDefaultActionDispatcher();
+    
+    /**
+     * The default service locator.
+     * 
+     * @return Xi\Zend\Mvc\Service\DefaultServiceLocator
+     */
+    protected function getServiceLocator() {
+        return new \Xi\Zend\Mvc\Service\DefaultServiceLocator($this->getInvokeArg('bootstrap'));
+    }
 }
