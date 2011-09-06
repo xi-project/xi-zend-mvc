@@ -9,7 +9,8 @@ namespace Xi\Zend\Mvc;
  */
 class View extends \Zend_View
 {
-    protected $helperClassSuffix = array();
+    // Zend_View requires internal variables to start with an underscore
+    protected $_helperClassSuffix = array();
     
     public function addBasePath($path, $classPrefix = 'Zend_View')
     {
@@ -42,16 +43,16 @@ class View extends \Zend_View
      */
     public function __call($name, $args)
     {
-        if (!isset($this->helperClassSuffix[$name])) {
+        if (!isset($this->_helperClassSuffix[$name])) {
             try {
                 $this->getHelper($name . 'Helper');
-                $this->helperClassSuffix[$name] = 'Helper';
+                $this->_helperClassSuffix[$name] = 'Helper';
             } catch (\Zend_Loader_Exception $e) {
-                $this->helperClassSuffix[$name] = '';
+                $this->_helperClassSuffix[$name] = '';
             }
         }
         
-        $helper = $this->getHelper($name . $this->helperClassSuffix[$name]);
+        $helper = $this->getHelper($name . $this->_helperClassSuffix[$name]);
         return call_user_func_array(array($helper, $name), $args);
     }
 }
