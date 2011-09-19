@@ -11,6 +11,11 @@ class View extends \Zend_View
 {
     protected $helperClassSuffix = array();
     
+    public function init()
+    {
+        $this->addHelperPath(__DIR__ . '/ViewHelper', '\Xi\Zend\Mvc\ViewHelper');
+    }
+    
     public function addBasePath($path, $classPrefix = 'Zend_View')
     {
         $path = rtrim($path, '/');
