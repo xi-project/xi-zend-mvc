@@ -8,36 +8,21 @@ use Xi\Zend\Mvc\ActionDispatcher\StatefulActionDispatcher;
  * Uses a StatefulActionDispatcher to allow setting the state based on the 
  * return value from the action.
  */
-class StatefulActionController extends AbstractActionController
+interface StatefulActionController
 {
-    /**
-     * @var null|boolean|string
-     */
-    private $state;
-    
     /**
      * @param null|boolean|string $state
      * @return StatefulActionController
      */
-    public function setState($state)
-    {
-        $this->state = $state;
-        return $this;
-    }
+    public function setState($state);
     
     /**
      * @return null|boolean|string
      */
-    public function getState()
-    {
-        return $this->state;
-    }
+    public function getState();
     
     /**
      * @return StatefulActionDispatcher 
      */
-    protected function getDefaultActionDispatcher()
-    {
-        return new StatefulActionDispatcher($this);
-    }
+    public function getActionDispatcher();
 }

@@ -24,7 +24,8 @@ abstract class AbstractActionController extends \Zend_Controller_Action
     {
         // Notify helpers of action preDispatch state
         $this->_helper->notifyPreDispatch();
-
+        
+        // Delegate actual dispatch to dispatcher
         $this->getActionDispatcher()->dispatch($action);
 
         // whats actually important here is that this action controller is
@@ -36,7 +37,7 @@ abstract class AbstractActionController extends \Zend_Controller_Action
     /**
      * @return ActionDispatcher
      */
-    protected function getActionDispatcher()
+    public function getActionDispatcher()
     {
         if (null === $this->actionDispatcher) {
             $this->actionDispatcher = $this->getDefaultActionDispatcher();
@@ -48,13 +49,4 @@ abstract class AbstractActionController extends \Zend_Controller_Action
      * @return ActionDispatcher
      */
     abstract protected function getDefaultActionDispatcher();
-    
-    /**
-     * The default service locator.
-     * 
-     * @return Xi\Zend\Mvc\Service\DefaultServiceLocator
-     */
-    protected function getServiceLocator() {
-        return new \Xi\Zend\Mvc\Service\DefaultServiceLocator($this->getInvokeArg('bootstrap'));
-    }
 }
