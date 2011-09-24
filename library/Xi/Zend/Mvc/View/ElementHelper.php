@@ -6,7 +6,7 @@ use Zend_View_Helper_Abstract;
 
 /**
  * Renders XHTML elements.
- * 
+ *
  * @category   Xi
  * @package    Zend
  * @subpackage Mvc
@@ -25,26 +25,83 @@ class ElementHelper extends Zend_View_Helper_Abstract
     protected $emptyElementFormat = '<%1$s%2$s />';
 
     /**
+     * @var string
+     */
+    private $element;
+
+    /**
+     * @var mixed
+     */
+    private $content;
+
+    /**
+     * @var array
+     */
+    private $attributes = array();
+
+    /**
      * Format the string for an HTML element.
      *
      * @param  string             $element    tag name (eg. "em")
      * @param  string|false|null  $content    non-string for an empty element
      * @param  array              $attributes
+     * @return ElementHelper
+     */
+    public function element($element, $content = null,
+        array $attributes = array()
+    ) {
+        $this->element    = $element;
+        $this->content    = $content;
+        $this->attributes = $attributes;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
-    public function element($element, $content = null, array $attributes = array())
+    public function __toString()
     {
-        if (is_string($content) || is_numeric($content)) {
-            return sprintf($this->elementFormat, $element, $this->formatAttributes($attributes), $content);
+        if (is_string($this->content) || is_numeric($this->content)) {
+            return sprintf(
+                $this->elementFormat,
+                $this->element,
+                $this->formatAttributes($this->attributes), $this->content
+            );
         } else {
-            return sprintf($this->emptyElementFormat, $element, $this->formatAttributes($attributes));
+            return sprintf(
+                $this->emptyElementFormat,
+                $this->element, $this->formatAttributes($this->attributes)
+            );
         }
+    }
+
+    /**
+     * @param  string        $content
+     * @return ElementHelper
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * @param  array         $attributes
+     * @return ElementHelper
+     */
+    public function setAttributes(array $attributes)
+    {
+        $this->attributes = $attributes;
+
+        return $this;
     }
 
     /**
      * Format attributes for an HTML element
      *
-     * @param array
+     * @param  array  $attribs
      * @return string
      */
     protected function formatAttributes(array $attribs)

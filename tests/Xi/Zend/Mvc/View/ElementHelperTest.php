@@ -32,7 +32,7 @@ class ElemenHelpertTest extends PHPUnit_Framework_TestCase
      */
     public function emptyContentCreatesASelfClosingTag()
     {
-        $this->assertEquals('<br />', $this->element->element('br'));
+        $this->assertEquals('<br />', sprintf($this->element->element('br')));
     }
 
     /**
@@ -40,7 +40,10 @@ class ElemenHelpertTest extends PHPUnit_Framework_TestCase
      */
     public function falseContentCreatesASelfClosingTag()
     {
-        $this->assertEquals('<br />', $this->element->element('br', false));
+        $this->assertEquals(
+            '<br />',
+            sprintf($this->element->element('br', false))
+        );
     }
 
     /**
@@ -48,7 +51,10 @@ class ElemenHelpertTest extends PHPUnit_Framework_TestCase
      */
     public function nullContentCreatesASelfClosingTag()
     {
-        $this->assertEquals('<br />', $this->element->element('br', null));
+        $this->assertEquals(
+            '<br />',
+            sprintf($this->element->element('br', null))
+        );
     }
 
     /**
@@ -56,7 +62,10 @@ class ElemenHelpertTest extends PHPUnit_Framework_TestCase
      */
     public function emptyStringContentCreatesAContainerTag()
     {
-        $this->assertEquals('<p></p>', $this->element->element('p', ''));
+        $this->assertEquals(
+            '<p></p>',
+            sprintf($this->element->element('p', ''))
+        );
     }
 
     /**
@@ -64,8 +73,15 @@ class ElemenHelpertTest extends PHPUnit_Framework_TestCase
      */
     public function numericContentCreatesAContainerTag()
     {
-        $this->assertEquals('<p>0</p>', $this->element->element('p', 0));
-        $this->assertEquals('<p>1.2</p>', $this->element->element('p', 1.2));
+        $this->assertEquals(
+            '<p>0</p>',
+            sprintf($this->element->element('p', 0))
+        );
+
+        $this->assertEquals(
+            '<p>1.2</p>',
+            sprintf($this->element->element('p', 1.2))
+        );
     }
 
     /**
@@ -75,7 +91,7 @@ class ElemenHelpertTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             '<span>foo bar</span>',
-            $this->element->element('span', 'foo bar')
+            sprintf($this->element->element('span', 'foo bar'))
         );
     }
 
@@ -86,7 +102,7 @@ class ElemenHelpertTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             '<span></span>',
-            $this->element->element(
+            sprintf($this->element->element(
                 'span',
                 '',
                 array(
@@ -94,7 +110,7 @@ class ElemenHelpertTest extends PHPUnit_Framework_TestCase
                     'id' => null,
                     'title' => false
                 )
-            )
+            ))
         );
     }
 
@@ -105,14 +121,14 @@ class ElemenHelpertTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             '<span class="bar" title="luss"></span>',
-            $this->element->element(
+            sprintf($this->element->element(
                 'span',
                 '',
                 array(
                     'class' => 'bar',
                     'title' => 'luss'
                 )
-            )
+            ))
         );
     }
 
@@ -123,11 +139,71 @@ class ElemenHelpertTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             '<p class="foo bar loso"></p>',
-            $this->element->element(
+            sprintf($this->element->element(
                 'p',
                 '',
                 array('class' => array('foo', 'bar', 'loso'))
-            )
+            ))
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function elementReturnsItself()
+    {
+        $this->assertSame($this->element, $this->element->element('p'));
+    }
+
+    /**
+     * @test
+     */
+    public function contentCanBeSetAfterCreation()
+    {
+        $this->assertEquals(
+            '<p></p>',
+            (string) $this->element->element('p', '')
+        );
+
+        $this->element->setContent('xoo');
+
+        $this->assertEquals(
+            '<p>xoo</p>',
+            (string) $this->element
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function attributesCanBeSetAfterCreation()
+    {
+        $this->assertEquals(
+            '<p class="foo"></p>',
+            (string) $this->element->element('p', '', array('class' => 'foo'))
+        );
+
+        $this->element->setAttributes(array('class' => 'bar'));
+
+        $this->assertEquals(
+            '<p class="bar"></p>',
+            (string) $this->element
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function settersReturnSameObject()
+    {
+        $this->assertSame(
+            $this->element,
+            $this->element->element('p')->setContent('content')
+        );
+
+        $this->assertSame(
+            $this->element,
+            $this->element->setAttributes(array('rel' => 'nofollow'))
         );
     }
 }
