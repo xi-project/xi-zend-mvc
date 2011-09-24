@@ -1,4 +1,5 @@
 <?php
+
 namespace Xi\Zend\Mvc\View;
 
 use Zend_View_Helper_Abstract;
@@ -16,12 +17,12 @@ class ElementHelper extends Zend_View_Helper_Abstract
     /**
      * @var string
      */
-    protected $_elementFormat = '<%1$s%2$s>%3$s</%1$s>';
+    protected $elementFormat = '<%1$s%2$s>%3$s</%1$s>';
 
     /**
      * @var string
      */
-    protected $_emptyElementFormat = '<%1$s%2$s />';
+    protected $emptyElementFormat = '<%1$s%2$s />';
 
     /**
      * Format the string for an HTML element.
@@ -34,9 +35,9 @@ class ElementHelper extends Zend_View_Helper_Abstract
     public function element($element, $content = null, array $attributes = array())
     {
         if (is_string($content) || is_numeric($content)) {
-            return sprintf($this->_elementFormat, $element, $this->_formatAttributes($attributes), $content);
+            return sprintf($this->elementFormat, $element, $this->formatAttributes($attributes), $content);
         } else {
-            return sprintf($this->_emptyElementFormat, $element, $this->_formatAttributes($attributes));
+            return sprintf($this->emptyElementFormat, $element, $this->formatAttributes($attributes));
         }
     }
 
@@ -46,7 +47,7 @@ class ElementHelper extends Zend_View_Helper_Abstract
      * @param array
      * @return string
      */
-    protected function _formatAttributes(array $attribs)
+    protected function formatAttributes(array $attribs)
     {
         $xhtml = '';
         foreach ((array) $attribs as $key => $val) {
