@@ -11,15 +11,15 @@ use Xi\Zend\Mvc\ActionDispatcher\StatefulActionDispatcher;
 interface StatefulActionController
 {
     /**
-     * @param null|boolean|string $state
+     * @param null|boolean|string $status
      * @return StatefulActionController
      */
-    public function setState($state);
+    public function setStatus($status);
     
     /**
      * @return null|boolean|string
      */
-    public function getState();
+    public function getStatus();
     
     /**
      * @return StatefulActionDispatcher 

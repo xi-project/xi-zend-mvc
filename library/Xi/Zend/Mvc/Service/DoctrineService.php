@@ -2,9 +2,9 @@
 namespace Xi\Zend\Mvc\Service;
 
 /**
- * A somewhat convenient service base class.
+ * A service base class associated with a Doctrine EntityManager
  */
-class DefaultService implements \Xi\Zend\Mvc\Service
+class DoctrineService implements \Xi\Zend\Mvc\Service
 {
     /**
      * The Doctrine entity manager.

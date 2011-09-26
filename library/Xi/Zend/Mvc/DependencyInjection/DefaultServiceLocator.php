@@ -3,7 +3,9 @@ namespace Xi\Zend\Mvc\DependencyInjection;
 
 use Zend_Application_Bootstrap_Bootstrap as Bootstrap,
     Xi\Zend\Mvc\Service,
-    \Xi\Zend\Mvc\ActionController\ServicefulActionController;
+    Xi\Zend\Mvc\Presenter,
+    Xi\Zend\Mvc\ActionController\ServicefulActionController,
+    Xi\Zend\Mvc\ActionController\PresentableActionController;
 
 /**
  * A reasonable default service locator that provides
@@ -17,6 +19,22 @@ class DefaultServiceLocator extends AbstractServiceLocator
      * @var Bootstrap
      */
     private $bootstrap;
+    
+    /**
+     * Override this to set a default service class name that will be used in
+     * case the autodiscovered one does not exist.
+     * 
+     * @var string fully qualified class name
+     */
+    protected $defaultServiceClass;
+    
+    /**
+     * Override this to set a default presenter class name that will be used in
+     * case the autodiscovered one does not exist.
+     * 
+     * @var string fully qualified class name
+     */
+    protected $defaultPresenterClass;
     
     public function __construct(Bootstrap $bootstrap)
     {
@@ -47,6 +65,22 @@ class DefaultServiceLocator extends AbstractServiceLocator
     public function getService(ServicefulActionController $actionController)
     {
         $class = $actionController->getServiceClassName();
+        if (!class_exists($class) && (null !== $this->defaultServiceClass)) {
+            $class = $this->defaultServiceClass;
+        }
         return new $class($this);
+    }
+    
+    /**
+     * @param PresentableActionController $actionController
+     * @return Presenter | false
+     */
+    public function getPresenter(PresentableActionController $actionController)
+    {
+        $class = $actionController->getPresenterClassName();
+        if (!class_exists($class) && (null !== $this->defaultPresenterClass)) {
+            $class = $this->defaultPresenterClass;
+        }
+        return new $class($actionController, $this);
     }
 }

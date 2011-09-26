@@ -10,7 +10,7 @@ class StatefulActionDispatcher extends RestfulActionDispatcher
     public function dispatch($action)
     {
         // Reset the ActionController's state before dispatch
-        $this->getActionController()->setState(null);
+        $this->getActionController()->setStatus(null);
         parent::dispatch($action);
     }
     
@@ -19,7 +19,7 @@ class StatefulActionDispatcher extends RestfulActionDispatcher
         // Capture a non-null return value as the new state
         $result = parent::dispatchAction($method, $arguments);
         if (null !== $result) {
-            $this->getActionController()->setState($result);
+            $this->getActionController()->setStatus($result);
         }
         return $result;
     }
