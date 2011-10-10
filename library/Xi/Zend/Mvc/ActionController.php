@@ -194,16 +194,18 @@ class ActionController extends ActionController\AbstractActionController
     }
     
     /**
-     * If not, replaces "Controller" with $type in the name of this class and
-     * returns it; eg. "ExampleModule\Controller\UserController" becomes 
+     * Implements a convention for finding names for associated classes, ie.
+     * services and presenters.
+     * 
+     * Replaces "Controller" with $type in the name of this class and returns
+     * it; eg. "ExampleModule\Controller\UserController" becomes 
      * "ExampleModule\Service\UserService". Implementors are free to replace the
      * default behaviour with their own discovery logic.
      * 
      * @param string $type
-     * @param string $alternate optional
      * @return string fully qualified class name
      */
-    protected function getAssociatedClassName($type, $alternate = null)
+    protected function getAssociatedClassName($type)
     {
         return str_replace("Controller", $type, get_class($this));
     }
