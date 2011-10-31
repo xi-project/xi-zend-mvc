@@ -8,11 +8,11 @@ use Xi\Zend\Mvc\Service;
  */
 class ZendViewPresenterLocator extends PresenterLocator
 {
-    public function init()
+    public function init($c)
     {
-        parent::init();
+        parent::init($c);
         
-        $this->container['viewRenderer'] = $this->container->share(function($c) {
+        $c['viewRenderer'] = $c->share(function($c) {
             return $c['actionController']->getHelper('ViewRenderer');
         });
     }

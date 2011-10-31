@@ -32,6 +32,7 @@ class DoctrineService implements \Xi\Zend\Mvc\Service
     {
         $this->serviceLocator = $serviceLocator;
         $this->em = $serviceLocator->getEntityManager();
+        $this->init();
     }
     
     /**

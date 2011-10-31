@@ -23,7 +23,7 @@ abstract class AbstractPresenter implements \Xi\Zend\Mvc\Presenter
     /**
      * @return PresenterLocator
      */
-    protected function getServiceLocator()
+    public function getServiceLocator()
     {
         return $this->serviceLocator;
     }

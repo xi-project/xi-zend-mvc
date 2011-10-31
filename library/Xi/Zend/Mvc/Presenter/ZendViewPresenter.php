@@ -44,7 +44,7 @@ class ZendViewPresenter extends AbstractPresenter
     /**
      * @return ZendViewPresenterLocator
      */
-    protected function getServiceLocator()
+    public function getServiceLocator()
     {
         return parent::getServiceLocator();
     }

@@ -8,11 +8,11 @@ use Xi\Zend\Mvc\Service;
  */
 class PresenterLocator extends AbstractActionControllerServiceLocator
 {
-    public function init()
+    public function init($c)
     {
-        parent::init();
+        parent::init($c);
         
-        $this->container['actionControllerService'] = $this->container->share(function($c) {
+        $c['actionControllerService'] = $c->share(function($c) {
             return $c['actionController']->getService();
         });
     }

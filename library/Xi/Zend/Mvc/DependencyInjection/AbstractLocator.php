@@ -37,7 +37,7 @@ class AbstractLocator
      * 
      * @param Pimple $container the container for this locator
      */
-    public function init(Pimple $container)
+    public function init($container)
     {
     }
 }

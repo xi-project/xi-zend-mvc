@@ -8,15 +8,17 @@ use Zend_Application_Bootstrap_Bootstrap as Bootstrap;
  */
 class DoctrineServiceLocator extends AbstractActionControllerServiceLocator
 {
-    public function init()
+    public function init($c)
     {
-        $this->container['bootstrap'] = $this->container->share(function($c) {
+        parent::init($c);
+        
+        $c['bootstrap'] = $c->share(function($c) {
             return $c['actionController']->getInvokeArg('bootstrap');
         });
-        $this->container['doctrineBootstrapResource'] = $this->container->share(function($c) {
+        $c['doctrineBootstrapResource'] = $c->share(function($c) {
             return $c['bootstrap']->getResource('doctrine');
         });
-        $this->container['entityManager'] = $this->container->share(function($c) {
+        $c['entityManager'] = $c->share(function($c) {
             return $c['doctrineBootstrapResource']->getEntityManager();
         });
     }
