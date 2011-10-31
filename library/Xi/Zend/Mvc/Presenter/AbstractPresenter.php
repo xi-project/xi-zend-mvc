@@ -2,39 +2,28 @@
 namespace Xi\Zend\Mvc\Presenter;
 
 use Xi\Zend\Mvc\ActionController,
-    Xi\Zend\Mvc\DependencyInjection\DefaultServiceLocator;
+    Xi\Zend\Mvc\DependencyInjection\PresenterServiceLocator;
 
 abstract class AbstractPresenter implements \Xi\Zend\Mvc\Presenter
 {
     /**
-     * @var ActionController
-     */
-    private $actionController;
-    
-    /**
-     * @var DefaultServiceLocator $serviceLocator 
+     * @var PresenterServiceLocator $serviceLocator 
      */
     private $serviceLocator;
     
-    public function __construct(ActionController $actionController, DefaultServiceLocator $serviceLocator)
+    /**
+     * @param PresenterLocator $serviceLocator
+     */
+    public function __construct($serviceLocator)
     {
-        $this->actionController = $actionController;
         $this->serviceLocator = $serviceLocator;
         $this->init();
     }
     
     /**
-     * @return ActionController
+     * @return PresenterLocator
      */
-    public function getActionController()
-    {
-        return $this->actionController;
-    }
-    
-    /**
-     * @return DefaultServiceLocator 
-     */
-    public function getServiceLocator()
+    protected function getServiceLocator()
     {
         return $this->serviceLocator;
     }
@@ -44,6 +33,6 @@ abstract class AbstractPresenter implements \Xi\Zend\Mvc\Presenter
      * 
      * @return void
      */
-    public function init()
+    protected function init()
     {}
 }

@@ -14,7 +14,7 @@ class ActionController extends ActionController\AbstractActionController
         ActionController\PresentableActionController
 {
     /**
-     * @var DependencyInjection\DefaultServiceLocator
+     * @var DependencyInjection\ActionControllerComponentLocator
      */
     private $serviceLocator;
     
@@ -60,7 +60,7 @@ class ActionController extends ActionController\AbstractActionController
     /**
      * The default service locator.
      * 
-     * @return DependencyInjection\DefaultServiceLocator
+     * @return DependencyInjection\ActionControllerComponentLocator
      */
     public function getServiceLocator()
     {
@@ -71,15 +71,15 @@ class ActionController extends ActionController\AbstractActionController
     }
     
     /**
-     * @return DependencyInjection\DefaultServiceLocator
+     * @return DependencyInjection\ActionControllerComponentLocator
      */
     protected function createServiceLocator()
     {
         if (null !== $this->serviceLocatorClass) {
             $class = $this->serviceLocatorClass;
-            return new $class($this->getInvokeArg('bootstrap'));
+            return new $class($this);
         }
-        return new DependencyInjection\DefaultServiceLocator($this->getInvokeArg('bootstrap'));
+        return new DependencyInjection\ActionControllerComponentLocator($this);
     }
     
     /**
@@ -139,7 +139,7 @@ class ActionController extends ActionController\AbstractActionController
     public function getPresenter()
     {
         if (null === $this->presenter) {
-            $this->presenter = $this->getServiceLocator()->getPresenter($this);
+            $this->presenter = $this->getServiceLocator()->getPresenter();
         }
         return $this->presenter;
     }
@@ -172,7 +172,7 @@ class ActionController extends ActionController\AbstractActionController
     public function getService()
     {
         if (null === $this->service) {
-            $this->service = $this->getServiceLocator()->getService($this);
+            $this->service = $this->getServiceLocator()->getService();
         }
         return $this->service;
     }

@@ -3,7 +3,8 @@ namespace Xi\Zend\Mvc\Presenter;
 
 use Xi\Zend\Mvc\ActionController,
     Zend_View,
-    Zend_Controller_Action_Helper_ViewRenderer;
+    Zend_Controller_Action_Helper_ViewRenderer,
+    Xi\Zend\Mvc\DependencyInjection\ZendViewPresenterLocator;
 
 class ZendViewPresenter extends AbstractPresenter
 {
@@ -26,11 +27,27 @@ class ZendViewPresenter extends AbstractPresenter
     protected $failureStatusString = 'failure';
     
     /**
+     * @param ZendViewPresenterLocator $serviceLocator
+     */
+    public function __construct($serviceLocator)
+    {
+        parent::__construct($serviceLocator);
+    }
+    
+    /**
+     * @return ZendViewPresenterLocator
+     */
+    protected function getServiceLocator()
+    {
+        return parent::getServiceLocator();
+    }
+    
+    /**
      * @return \Zend_Controller_Action_Helper_ViewRenderer
      */
-    public function getViewRenderer()
+    protected function getViewRenderer()
     {
-        return $this->getActionController()->getHelper('ViewRenderer');
+        return $this->getServiceLocator()->getViewRenderer();
     }
 
     /**
@@ -79,7 +96,10 @@ class ZendViewPresenter extends AbstractPresenter
      */
     protected function getDisplayArguments()
     {
-        return array_merge($this->getActionController()->getService(), $this->getViewRenderer()->view);
+        return array(
+            $this->getServiceLocator()->getActionControllerService(),
+            $this->getViewRenderer()->view
+        );
     }
     
     /**

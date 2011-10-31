@@ -1,7 +1,12 @@
 <?php
 namespace Xi\Zend\Mvc\DependencyInjection;
 
+use Pimple;
+
 /**
+ * An abstract implementation of the Service Locator pattern. Provides a bundle
+ * of dependencies for other classes to consume.
+ * 
  * This gets passed to constructors of Services and other classes
  * that need dependencies. Services shall receive dependencies ONLY through
  * this class and NEVER through globals or static methods.
@@ -14,23 +19,25 @@ namespace Xi\Zend\Mvc\DependencyInjection;
  * in init(). See http://pimple.sensiolabs.org/ for inspiration on how
  * to set up the container.
  */
-class AbstractServiceLocator
+class AbstractLocator
 {
     /**
-     * @var \Pimple
+     * @var Pimple
      */
     protected $container;
     
-    public function __construct()
+    public function __construct(Pimple $container = null)
     {
-        $this->container = new \Pimple;
-        $this->init();
+        $this->container = (null === $container) ? new Pimple : $container;
+        $this->init($this->container);
     }
     
     /**
      * Inserts things (or functions to create the things) exposed by getters.
+     * 
+     * @param Pimple $container the container for this locator
      */
-    public function init()
+    public function init(Pimple $container)
     {
     }
 }

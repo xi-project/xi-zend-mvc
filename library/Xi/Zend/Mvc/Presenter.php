@@ -3,15 +3,10 @@ namespace Xi\Zend\Mvc;
 
 interface Presenter
 {
-    public function __construct(ActionController $actionController, DependencyInjection\DefaultServiceLocator $serviceLocator);
+    public function __construct(DependencyInjection\PresenterLocator $serviceLocator);
     
     /**
-     * @return ActionController
-     */
-    public function getActionController();
-    
-    /**
-     * @return DependencyInjection\DefaultServiceLocator
+     * @return DependencyInjection\PresenterLocator
      */
     public function getServiceLocator();
     

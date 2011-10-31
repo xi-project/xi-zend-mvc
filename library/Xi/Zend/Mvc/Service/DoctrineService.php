@@ -14,7 +14,7 @@ class DoctrineService implements \Xi\Zend\Mvc\Service
     protected $em;
     
     /**
-     * @param DependencyInjection\ServiceLocator $serviceLocator
+     * @param DependencyInjection\DoctrineServiceLocator $serviceLocator
      */
     public function __construct($serviceLocator)
     {

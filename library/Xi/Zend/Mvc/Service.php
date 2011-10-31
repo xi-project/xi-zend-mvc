@@ -8,7 +8,7 @@ namespace Xi\Zend\Mvc;
 interface Service
 {
     /**
-     * @param DependencyInjection\AbstractServiceLocator $serviceLocator
+     * @param DependencyInjection\AbstractLocator $serviceLocator
      */
     public function __construct($serviceLocator);
 }
