@@ -27,23 +27,20 @@ class ActionControllerLocator extends AbstractActionControllerServiceLocator
      */
     protected $defaultPresenterClass = 'Xi\Zend\Mvc\Presenter\ZendViewPresenter';
     
-    /**
-     * @var string fully qualified class name
-     */
-    protected $serviceLocatorClass = 'Xi\Zend\Mvc\DependencyInjection\DoctrineServiceLocator';
-    
-    /**
-     * @var string fully qualified class name
-     */
-    protected $presenterLocatorClass = 'Xi\Zend\Mvc\DependencyInjection\ZendViewPresenterLocator';
-    
     public function init()
     {
         parent::init();
         $c = $c;
         
-        $c['serviceLocatorClass'] = $this->serviceLocatorClass;
-        $c['presenterLocatorClass'] = $this->presenterLocatorClass;
+        $c['serviceLocatorClass'] = $c->share(function($c) {
+            $class = $c['serviceClass'];
+            return $class::LOCATOR;
+        });
+        $c['presenterLocatorClass'] = $c->share(function($c) {
+            $class = $c['presenterClass'];
+            return $class::LOCATOR;
+        });
+        
         $c['defaultServiceClass'] = $this->defaultServiceClass;
         $c['defaultPresenterClass'] = $this->defaultPresenterClass;
         

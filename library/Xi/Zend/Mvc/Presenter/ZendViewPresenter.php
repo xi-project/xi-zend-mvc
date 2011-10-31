@@ -9,6 +9,13 @@ use Xi\Zend\Mvc\ActionController,
 class ZendViewPresenter extends AbstractPresenter
 {
     /**
+     * This constant is used by ActionControllerLocator to discover a suitable
+     * locator for this class. The locator will be provided as a constructor
+     * argument.
+     */
+    const LOCATOR = 'Xi\Zend\Mvc\DependencyInjection\ZendViewPresenterLocator';
+    
+    /**
      * The script action name to pass to the view renderer when the action has a
      * status. First parameter is the action name, the second one is the status.
      *
