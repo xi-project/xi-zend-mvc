@@ -20,7 +20,7 @@ class ControllerDispatcher extends Zend_Controller_Dispatcher_Standard
      */
     public function isDispatchable(Zend_Controller_Request_Abstract $request)
     {
-        $className = $this->getControllerClass($request);
+        $className = $this->getFullyQualifiedControllerClass($request);
         
         return $className && class_exists($className);
     }
@@ -32,10 +32,11 @@ class ControllerDispatcher extends Zend_Controller_Dispatcher_Standard
      * @param Zend_Controller_Request_Abstract $request
      * @return string
      */
-    public function getControllerClass(Zend_Controller_Request_Abstract $request)
+    public function getFullyQualifiedControllerClass(Zend_Controller_Request_Abstract $request)
     {
         return $this->asFullyQualifiedClassName(parent::getControllerClass($request));
     }
+    
     /**
      * Attempts to retrieve the fully qualified default controller name for the
      * provided request.
